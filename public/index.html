@@ -1,0 +1,219 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#123b32"><title>Northern Cape NTA | Management System</title><link rel="stylesheet" href="/assets/css/main.css"><style>
+:root{--green:#123b32;--gold:#c89d4a;--paper:#f4f6f2;--ink:#1d2925;--line:#dce4dd;--muted:#62736b}*{box-sizing:border-box}body{background:var(--paper);color:var(--ink)}.app-shell{max-width:1180px;margin:auto;padding:28px 20px 70px}.app-top{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}.app-top h1{font-size:clamp(1.5rem,4vw,2.3rem);margin:0;color:var(--green)}.app-top p{margin:5px 0;color:var(--muted)}.app-user{display:flex;align-items:center;gap:12px}.pill{display:inline-flex;padding:5px 9px;border-radius:20px;background:#e1ece4;color:#164b3c;font-size:.78rem;font-weight:700}.panel{background:white;border:1px solid var(--line);border-radius:14px;padding:20px;margin-top:20px;box-shadow:0 5px 18px #173b3210}.panel h2{margin:0 0 14px;font-size:1.2rem}.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px}.btn{border:0;border-radius:8px;padding:10px 14px;background:var(--green);color:#fff;font-weight:700;cursor:pointer}.btn.secondary{background:#e7eee8;color:var(--green)}.btn.warn{background:#8e4c22}.btn:disabled{opacity:.5;cursor:not-allowed}.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.field{display:flex;flex-direction:column;gap:6px;min-width:0}.field.full{grid-column:1/-1}.field label{font-size:.86rem;font-weight:700}.field input,.field select,.field textarea{width:100%;border:1px solid #cbd7ce;border-radius:8px;padding:11px;background:#fff;color:var(--ink);font:inherit}.field textarea{min-height:100px;resize:vertical}.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:.9rem}th,td{text-align:left;padding:11px 9px;border-bottom:1px solid var(--line);vertical-align:top}th{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.metric{padding:15px;border:1px solid var(--line);border-radius:11px;background:#fbfcfa}.metric span{display:block;font-size:.8rem;color:var(--muted)}.metric strong{display:block;font-size:1.7rem;color:var(--green);margin-top:4px}.notice{border-radius:8px;padding:12px;background:#fff4dc;color:#6a4b12;margin-top:12px}.error{background:#fff0ef;color:#8e2f26}.success{background:#e6f4e9;color:#1d6032}.muted{color:var(--muted)}.hidden{display:none!important}.checklist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.check{display:flex;align-items:flex-start;gap:8px;padding:9px;border:1px solid var(--line);border-radius:8px}.check input{margin-top:4px}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px;border-bottom:1px solid var(--line);padding-bottom:10px}.tabs button{border:1px solid var(--line);border-radius:8px;padding:9px 12px;background:#fff;color:var(--green);cursor:pointer;font-weight:700}.tabs button.active{background:var(--green);color:white}.login-layout{max-width:680px;margin:35px auto}.status{font-size:.77rem;font-weight:700;border-radius:20px;background:#eef1ee;padding:5px 8px;white-space:nowrap}.small{font-size:.83rem}.document-row{display:flex;justify-content:space-between;align-items:center;gap:10px;border-bottom:1px solid var(--line);padding:10px 0}.inline{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px}.toast{position:sticky;top:8px;z-index:3;margin-top:12px}.app-footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:35px}@media(max-width:760px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.form-grid,.two-col{grid-template-columns:1fr}.field.full{grid-column:auto}.checklist{grid-template-columns:1fr}.app-shell{padding:18px 12px 45px}.panel{padding:15px}.app-user{width:100%;justify-content:space-between}}</style></head><body><div class="topline"><div class="wrap top-inner"><span>REPUBLIC OF SOUTH AFRICA</span><span>Department of Education · Northern Cape</span></div></div><header class="header"><div class="wrap nav"><a class="brand" href="/"><span class="brand-mark">NC</span><span><strong>Northern Cape NTA</strong><small>Digital Management System</small></span></a><nav><a href="#about">About</a><a href="#process">Process</a>  <a href="#hall-of-fame">Hall of Fame</a>
+<a href="#workspace">Workspace</a><a href="#faq">FAQ</a><a href="/admin.html">Admin console</a></nav></div></header>
+<main><section class="hero" id="about"><div class="wrap hero-grid"><div><div class="eyebrow"><i></i> NORTHERN CAPE PROVINCIAL SYSTEM</div><h1>Recognising the people who <em>shape our future.</em></h1><p class="hero-lead">A digital workspace for National Teaching Awards applications, document compliance, district vetting and provincial compliance approval.</p><div class="hero-actions"><a class="button button-light" href="#workspace">Open secure workspace →</a></div><div class="trust-row"><span>✓ Role-based access</span><b>·</b><span>✓ Audit trail</span><b>·</b><span>✓ Private documents</span></div></div><div class="hero-panel"><div class="panel-top"><span class="panel-label">SYSTEM STATUS</span><span class="status-pill" id="healthPill">Checking…</span></div><h3>Application management</h3><p class="muted">Statistics are visible after sign-in and come from the configured PostgreSQL database.</p><div class="panel-foot"><span id="healthMessage">Checking database connection…</span><button id="refreshHealth" title="Refresh">↻</button></div><div class="countdown-box" id="cycleCountdown" aria-live="polite"><strong>Loading award dates…</strong><span>Checking configured award cycle</span></div></div></div></section>
+<section class="section" id="process"><div class="wrap"><div class="section-heading"><div><label>THE WORKFLOW</label><h2>From application to <em>compliance approval.</em></h2></div><p>Teachers submit. District officials verify. Provincial officials complete compliance approval. National adjudication remains outside this system.</p></div><div class="process-grid"><article><span>01</span><b>✎</b><h3>Teacher application</h3><p>Create a profile, select an award category, attach evidence and submit during an open cycle.</p></article><article><span>02</span><b>▤</b><h3>District vetting</h3><p>Record checks, return applications for corrections and document the decision history.</p></article><article><span>03</span><b>✓</b><h3>Provincial compliance</h3><p>Review district-approved applications and approve eligible records for controlled export.</p></article><article><span>04</span><b>◎</b><h3>Reporting and audit</h3><p>Review workflow records, cycle configuration, disputes, reassessment tasks and audit activity.</p></article></div></div></section>
+<section class="section" id="faq"><div class="wrap"><div class="section-heading"><div><label>COMMON QUESTIONS</label><h2>Frequently asked questions</h2></div><p>Find practical help before you apply.</p></div><div class="faq-grid"><details><summary>Who can register?</summary><p>Teachers can create an account to prepare applications. Eligibility and category requirements must be checked against the current official NTA guide.</p></details><details><summary>How do I apply?</summary><p>Create an account, sign in, start an application, complete the required fields, attach evidence, and submit before the published deadline.</p></details><details><summary>Can I save my application?</summary><p>Yes. Save a draft and return to it later. Check the status in your teacher workspace.</p></details><details><summary>What documents can I upload?</summary><p>The portal accepts PDF, JPG and PNG files up to the configured upload limit. The category guide determines which evidence is required.</p></details><details><summary>What happens after submission?</summary><p>Authorised district officials review submissions and may return an application for correction. Provincial staff can review compliance after district vetting.</p></details><details><summary>How do I get support?</summary><p>Use the support assistant at the bottom of the page for navigation and upload troubleshooting. It does not make award eligibility decisions.</p></details></div></div></section><section class="section" id="contentPages"><div class="wrap"><div class="section-heading"><div><label>UPDATES & RESOURCES</label><h2>Latest announcements</h2></div></div><div id="publicPages" class="cards"><p class="muted">
+Latest announcements will appear here when published.</p></div></div></section>
+
+<!-- ==========================================
+     HALL OF FAME
+=========================================== -->
+<section class="nta-fame" id="hall-of-fame">
+  <div class="wrap">
+
+    <div class="nta-fame-heading">
+      <span class="nta-fame-label">
+        ★ CELEBRATING OUR EDUCATORS ★
+      </span>
+
+      <h2>Hall of <em>Fame</em></h2>
+
+      <p class="nta-fame-intro">
+        Behind every great learner is an extraordinary teacher.
+        Join us in celebrating the dedication, passion and
+        achievements of educators who inspire the next generation.
+      </p>
+    </div>
+
+    <!-- PHOTO PREVIEWS -->
+    <div class="nta-fame-gallery">
+
+      <button class="nta-fame-photo" type="button"
+              data-fame-photo="0"
+              aria-label="Preview NTA photograph 1">
+        <img
+          src="/assets/images/hall-of-fame/nta-photo-1.png"
+          alt="National Teaching Awards celebration"
+          loading="lazy">
+        <span>Meet our Coordinator/Administrator </span>
+      </button>
+
+      <button class="nta-fame-photo" type="button"
+              data-fame-photo="1"
+              aria-label="Preview NTA photograph 2">
+        <img
+          src="/assets/images/hall-of-fame/nta-photo-2.png"
+          alt="National Teaching Awards ceremony"
+          loading="lazy">
+        <span>Celebrating Achievement</span>
+      </button>
+
+      <button class="nta-fame-photo" type="button"
+              data-fame-photo="2"
+              aria-label="Preview NTA photograph 3">
+        <img
+          src="/assets/images/hall-of-fame/nta-photo-3.png"
+          alt="National Teaching Awards memorable moments"
+          loading="lazy">
+        <span>Inspiring Future Winners</span>
+      </button>
+
+    </div>
+
+    <!-- MOTIVATIONAL MESSAGE -->
+    <div class="nta-fame-message">
+      <span class="nta-fame-star">✦</span>
+
+      <h3>Every Great Teacher Deserves to Be Celebrated.</h3>
+
+      <p>
+        Today, we celebrate their achievements.
+        Tomorrow, we could be celebrating yours!
+        Explore the unforgettable moments of the
+        2026 National Teaching Awards and discover
+        the passion and excellence that make our
+        educators extraordinary.
+      </p>
+
+      <a
+        class="nta-fame-link"
+        href="https://nivalorastudio.pixieset.com/2026nationalteachingawards/"
+        target="_blank"
+        rel="noopener noreferrer">
+        Explore the Full 2026 NTA Gallery
+        <span aria-hidden="true">↗</span>
+      </a>
+
+      <p class="nta-fame-credit">
+        Photography gallery hosted by Nivalora Studio.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- PHOTO PREVIEW POPUP -->
+<dialog id="fameLightbox" class="nta-fame-lightbox">
+  <div class="nta-fame-lightbox-controls">
+    <button id="famePrevious" type="button"
+            aria-label="Previous photograph">←</button>
+    <button id="fameClose" type="button"
+            aria-label="Close photograph preview">✕</button>
+    <button id="fameNext" type="button"
+            aria-label="Next photograph">→</button>
+  </div>
+
+  <img id="fameLightboxImage"
+       alt="Enlarged NTA photograph">
+</dialog>
+
+<section class="section" id="workspace">
+  <div class="wrap">
+    <div class="section-heading">
+      <div>
+        <label>SECURE WORKSPACE</label>
+        <h2>Sign in or <em>Create a teacher account.</em></h2>
+      </div>
+      <p>Teachers and authorised staff use the same sign-in form. Teachers can register here; staff accounts are created by an authorised system administrator.</p>
+    </div>
+    <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+    <div id="authPanel" class="panel">
+      <div class="tabs">
+        <button class="active" type="button" data-auth-tab="login">Sign in</button>
+        <button type="button" data-auth-tab="register">Teacher registration</button>
+      </div>
+      <form id="loginForm" class="form-grid" style="margin-top:16px">
+        <div class="field">
+          <label for="loginEmail">Email</label>
+          <input id="loginEmail" name="email" type="email" required autocomplete="username">
+        </div>
+        <div class="field">
+          <label for="loginPassword">Password</label>
+          <div class="pw-wrap"><input id="loginPassword" name="password" type="password" required autocomplete="current-password"><button type="button" class="pw-toggle" data-toggle-password="loginPassword" aria-label="Show or hide password">Show</button></div>
+        </div>
+        <div class="field full" style="margin-top:4px; align-items:center">
+          <a href="/forgot-password.html" style="display:inline-block; padding:12px 20px; background:#123b32; color:#ffffff; border-radius:10px; font-weight:700; font-size:0.9rem; text-decoration:none; box-shadow:0 8px 20px rgba(18,59,50,0.18)">Forgot password?</a>
+        </div>
+        <div class="field full">
+          <button class="btn" type="submit">Sign in securely</button>
+        </div>
+      </form>
+      <form id="registerForm" class="form-grid hidden" style="margin-top:16px" novalidate>
+        <div class="field"><label for="reg_title">Title</label><select id="reg_title" name="title"><option value="">Select…</option><option>Mr</option><option>Mrs</option><option>Ms</option><option>Miss</option><option>Dr</option><option>Prof</option><option>Other</option></select><small class="field-error" data-error-for="title" role="alert"></small></div>
+        <div class="field"><label for="reg_firstName">First name *</label><input id="reg_firstName" name="firstName" required autocomplete="given-name" maxlength="60"><small class="field-error" data-error-for="firstName" role="alert"></small></div>
+        <div class="field"><label for="reg_surname">Surname *</label><input id="reg_surname" name="surname" required autocomplete="family-name" maxlength="60"><small class="field-error" data-error-for="surname" role="alert"></small></div>
+        <div class="field"><label for="reg_email">Email *</label><input id="reg_email" name="email" type="email" required autocomplete="email" maxlength="254"><small class="field-error" data-error-for="email" role="alert"></small></div>
+        <div class="field"><label for="reg_password">Password *</label><div class="pw-wrap"><input id="reg_password" name="password" type="password" required autocomplete="new-password" minlength="12" maxlength="72"><button type="button" class="pw-toggle" data-toggle-password="reg_password" aria-label="Show or hide password">Show</button></div><div class="pw-meter" aria-hidden="true"><span id="pwBar"></span></div><small id="pwHint" class="field-hint">At least 12 characters with letters and numbers.</small><small class="field-error" data-error-for="password" role="alert"></small></div>
+        <div class="field"><label for="reg_confirmPassword">Confirm password *</label><div class="pw-wrap"><input id="reg_confirmPassword" name="confirmPassword" type="password" required autocomplete="new-password" maxlength="72"><button type="button" class="pw-toggle" data-toggle-password="reg_confirmPassword" aria-label="Show or hide password">Show</button></div><small class="field-error" data-error-for="confirmPassword" role="alert"></small></div>
+        <div class="field"><label for="reg_saceNumber">SACE number *</label><input id="reg_saceNumber" name="saceNumber" required autocomplete="off" maxlength="20" inputmode="text"><small class="field-hint">Spaces and dashes are removed automatically.</small><small class="field-error" data-error-for="saceNumber" role="alert"></small></div>
+        <div class="field"><label for="reg_citizenship">Citizenship / registration status *</label><select id="reg_citizenship" name="citizenship" required><option value="">Select…</option><option>South African citizen</option><option>Permanent resident</option><option>Other</option></select><small class="field-hint">Eligibility is confirmed by officials against the official guide.</small><small class="field-error" data-error-for="citizenship" role="alert"></small></div>
+        <div class="field"><label for="reg_yearsTeaching">Years teaching *</label><input id="reg_yearsTeaching" name="yearsTeaching" type="number" min="0" max="60" step="1" inputmode="numeric" required><small class="field-error" data-error-for="yearsTeaching" role="alert"></small></div>
+        <div class="field"><label for="reg_yearsAtCurrentSchool">Years at current school *</label><input id="reg_yearsAtCurrentSchool" name="yearsAtCurrentSchool" type="number" min="0" max="60" step="1" inputmode="numeric" required><small class="field-error" data-error-for="yearsAtCurrentSchool" role="alert"></small></div>
+        <div class="field full"><label for="reg_phone">Phone (optional)</label><input id="reg_phone" name="phone" type="tel" autocomplete="tel" maxlength="20" placeholder="e.g. 069 133 1839"><small class="field-error" data-error-for="phone" role="alert"></small></div>
+        <div class="field full"><label for="reg_registrationDocument">SACE certificate *</label><input id="reg_registrationDocument" name="registrationDocument" type="file" accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png" required><small class="field-hint">Required to register. PDF, JPG or PNG; maximum 10 MB. Stored privately for authorised review.</small><small class="field-error" data-error-for="registrationDocument" role="alert"></small></div>
+        <div class="field full"><label for="reg_idDocument">Identity document (optional)</label><input id="reg_idDocument" name="idDocument" type="file" accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png"><small class="field-hint">Upload a PDF, JPG or PNG, up to 10 MB.</small></div>
+        <div class="field full"><label for="reg_evidenceDocuments">Supporting evidence (optional)</label><input id="reg_evidenceDocuments" name="evidenceDocuments" type="file" accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png" multiple><small class="field-hint">You can select up to 10 files. PDF, JPG or PNG; each file up to 10 MB.</small></div>
+        <div class="field full"><label for="reg_motivationalLetters">Motivational letter(s) (optional)</label><input id="reg_motivationalLetters" name="motivationalLetters" type="file" accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png" multiple><small class="field-hint">You can select up to 5 files. PDF, JPG or PNG; each file up to 10 MB.</small></div>
+        <div class="field full consent-row"><label class="consent"><input id="reg_consent" name="consent" type="checkbox" required> <span>I agree that my personal information may be processed for National Teaching Awards applications, verification and reporting, and that officials may verify it against SACE and supporting documents.</span></label><small class="field-error" data-error-for="consent" role="alert"></small></div>
+        <div class="field full">
+          <p class="small muted">This creates a teacher account. Your SACE details and any uploaded documents are stored privately and verified by authorised officials. Additional documents are optional during registration.</p>
+          <button class="btn" type="submit">Create teacher account</button>
+        </div>
+      </form>
+    </div>
+    <div id="appWorkspace" class="hidden">
+      <div class="app-top">
+        <div><h1 id="welcomeTitle">Workspace</h1><p id="welcomeSubtitle">Your role-specific workspace</p></div>
+        <div class="app-user"><span id="rolePill" class="pill">ROLE</span><button id="logoutBtn" class="btn secondary" type="button">Sign out</button></div>
+      </div>
+      <div id="dashboardMetrics" class="cards"></div>
+      <div id="roleActions" class="toolbar"></div>
+      <div id="workspaceContent"></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<aside id="supportWidget" class="support-widget">
+  <button id="supportToggle" class="support-toggle" type="button" aria-expanded="false" aria-controls="supportPanel">💬 Support assistant</button>
+  <section id="supportPanel" class="support-panel hidden" aria-label="Website support assistant">
+    <div class="support-head">
+      <div><strong>NTA Support</strong><p>Website navigation and upload help</p></div>
+      <button id="supportClose" type="button" aria-label="Close support assistant">×</button>
+    </div>
+    <div id="supportMessages" class="support-messages" aria-live="polite">
+      <div class="chat-bubble bot">Hello! I can help you navigate the site, manage drafts, or troubleshoot uploads. I can’t make eligibility decisions or replace the official NTA guide.</div>
+    </div>
+    <form id="supportForm" class="support-form">
+      <label class="sr-only" for="supportMessage">Your question</label>
+      <textarea id="supportMessage" maxlength="1200" rows="2" placeholder="How can I upload a document?" required></textarea>
+      <button class="btn" type="submit">Send</button>
+    </form>
+    <p class="support-footnote">Do not share passwords or sensitive personal information.</p>
+  </section>
+</aside>
+
+<button id="backToTop" class="back-to-top" type="button" aria-label="Back to top" title="Back to top" hidden>
+  <span aria-hidden="true">↑</span> Back to top
+</button>
+
+<footer>
+  <div class="wrap footer-main">
+    <a class="brand" href="/"><span class="brand-mark">NC</span><span><strong>Northern Cape NTA</strong><small>Digital Management System</small></span></a>
+    <p>Supporting organised applications and transparent district vetting.</p>
+    <span>PROJECT BUILD · v3.0</span>
+  </div>
+  <div class="footer-bottom">
+    <div class="wrap">
+      <span>© <span id="year"></span> Northern Cape NTA Digital Management System</span>
+      <span>Contact us: <a href="mailto:siphokuhlenjova2004@gmail.com">siphokuhlenjova2004@gmail.com</a> · <a href="tel:+27691331839">069 133 1839</a></span>
+      <span>Use only with approved rules and authorised accounts.</span>
+    </div>
+  </div>
+</footer>
+<script src="/assets/js/site-extras.js"></script>
+<script src="/assets/js/hall-of-fame.js"></script>
+<script src="/assets/js/home.js"></script>
+</body>
+</html>

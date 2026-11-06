@@ -1,0 +1,14 @@
+node_modules/
+.env
+/private_uploads/
+/uploads/*
+!/uploads/.gitkeep
+prisma/*.db
+.env.*
+!.env.example
+
+*.dump
+*.sql
+
+logs/
+npm-debug.log*

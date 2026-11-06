@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#123b32">
+  <title>NTA | Administration</title>
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <style>
+    body{background:#f4f7f5}
+    .admin-wrap{max-width:1180px;margin:34px auto;padding:0 22px 56px}
+    .admin-intro{display:flex;justify-content:space-between;align-items:end;gap:18px;flex-wrap:wrap}
+    .admin-intro h1{margin:0;color:#154d40}
+    .admin-nav{display:flex;gap:9px;flex-wrap:wrap;margin:20px 0}
+    .admin-nav button{border:1px solid #becfc8;background:#fff;padding:10px 15px;border-radius:9px;cursor:pointer;font-weight:700;color:#154d40}
+    .admin-nav button.active{background:#154d40;color:white}
+    .admin-card{background:white;border:1px solid #d7e4dd;border-radius:14px;padding:22px;margin:18px 0;box-shadow:0 5px 18px #173b3210}
+    .admin-card h2{margin-top:0}
+    .admin-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+    .metric{background:#eaf4ee;padding:18px;border-radius:12px;min-width:0}
+    .metric span{display:block;color:#53645c;font-size:.88rem}
+    .metric b{display:block;font-size:27px;color:#154d40;margin-top:5px}
+    .admin-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;max-width:850px}
+    .admin-form label{display:grid;gap:6px;font-weight:600}
+    .admin-form input,.admin-form textarea,.admin-form select{width:100%;border:1px solid #b9c9c1;padding:10px;border-radius:8px;font:inherit}
+    .admin-form textarea{min-height:110px}
+    .admin-table{width:100%;border-collapse:collapse}
+    .admin-table th,.admin-table td{padding:10px;border-bottom:1px solid #dce7e1;text-align:left;vertical-align:top}
+    .admin-table td{overflow-wrap:anywhere}
+    .admin-hidden{display:none!important}
+    .admin-message{padding:12px;background:#e5f2ed;border-radius:8px;margin:12px 0}
+    .admin-actions{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}
+    #chart{width:100%;height:160px}
+    .muted{color:#53645c}
+    .check-cell{text-align:center!important}
+    .section-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+    .admin-card h3{margin-top:26px}
+    @media(max-width:650px){.admin-wrap{padding:0 12px 36px}.admin-card{padding:16px}.admin-form{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="wrap nav">
+      <a class="brand" href="/">
+        <span class="brand-mark">NC</span>
+        <span><strong>Northern Cape NTA</strong><small>Administration console</small></span>
+      </a>
+      <nav><a href="/">Public site</a><a href="/#workspace">Teacher &amp; staff sign in</a></nav>
+    </div>
+  </header>
+  <main class="admin-wrap">
+    <div class="admin-intro">
+      <div><h1>Administration dashboard</h1><p class="muted">Performance, award-cycle management and operational workflow.</p></div>
+      <a class="btn secondary" href="/">Return to public site</a>
+    </div>
+    <div id="message" role="status" aria-live="polite" class="admin-message">Checking your access…</div>
+    <div id="console" class="admin-hidden">
+      <nav class="admin-nav" id="tabs" aria-label="Administration sections">
+        <button type="button" data-tab="overview" class="active">Overview</button>
+        <button type="button" data-tab="pages">Content manager</button>
+        <button type="button" data-tab="settings">Site settings</button>
+        <button type="button" data-tab="activity">Activity &amp; health</button>
+        <button type="button" data-tab="data">Data tools</button>
+      </nav>
+
+      <section id="overview" class="admin-card">
+        <h2>Performance &amp; actionable metrics</h2>
+        <div id="metrics" class="admin-grid" aria-live="polite"></div>
+        <h3>Website visits · last 14 days</h3>
+        <svg id="chart" role="img" aria-label="Daily website visits bar chart"></svg>
+        <h3>Application status breakdown</h3>
+        <div id="statuses"></div>
+      </section>
+
+      <section id="pages" class="admin-card admin-hidden">
+        <h2>Content management</h2>
+        <p>Create announcements, pages and articles. New content remains unpublished until you publish it.</p>
+        <form id="pageForm" class="admin-form">
+          <input type="hidden" name="id">
+          <label>Page title<input name="title" required maxlength="160"></label>
+          <label>URL slug<input name="slug" required pattern="[a-z0-9-]{2,80}"></label>
+          <label>Short summary<textarea name="summary" maxlength="1000"></textarea></label>
+          <label>Page content (plain text)<textarea name="body" maxlength="30000"></textarea></label>
+          <label><span><input name="published" type="checkbox" style="width:auto"> Publish immediately</span></label>
+          <div><button class="btn" type="submit">Save page</button> <button class="btn secondary" type="button" id="clearPage">Clear form</button></div>
+        </form>
+        <h3>Manage pages</h3>
+        <div class="table-wrap">
+          <table class="admin-table"><thead><tr><th>Select</th><th>Title</th><th>Slug</th><th>Status</th><th>Actions</th></tr></thead><tbody id="pageRows"></tbody></table>
+        </div>
+        <div class="admin-actions">
+          <button type="button" data-bulk="publish">Publish selected</button>
+          <button type="button" data-bulk="unpublish">Unpublish selected</button>
+          <button type="button" data-bulk="delete">Delete selected</button>
+        </div>
+      </section>
+
+      <section id="settings" class="admin-card admin-hidden">
+        <h2>General site configuration</h2>
+        <form id="settingsForm" class="admin-form">
+          <label>Site title<input name="siteTitle"></label>
+          <label>Homepage value proposition<input name="tagline"></label>
+          <label>Theme<select name="theme"><option value="forest">Forest</option><option value="ocean">Ocean</option><option value="slate">Slate</option></select></label>
+          <label>SEO description<textarea name="metaDescription"></textarea></label>
+          <label>Contact email<input type="email" name="contactEmail"></label>
+          <label>Domain<input name="domain" placeholder="https://example.org"></label>
+          <label>Email alerts<select name="emailAlerts"><option value="off">Off (not configured)</option><option value="on">On (requires email provider integration)</option></select></label>
+          <button class="btn">Save settings</button>
+        </form>
+        <p class="muted">Domain settings do not configure DNS or SSL. Email delivery needs a provider integration.</p>
+      </section>
+
+      <section id="activity" class="admin-card admin-hidden">
+        <h2>System monitoring &amp; audit activity</h2>
+        <div id="system"></div>
+        <h3>Recent audit events</h3>
+        <div id="activityRows"></div>
+      </section>
+
+      <section id="data" class="admin-card admin-hidden">
+        <h2>Export, import &amp; backups</h2>
+        <p><a class="btn" href="/api/admin/backup.json">Download configuration backup (JSON)</a> <a class="btn secondary" href="/api/reports/export.csv">Export approved applications (CSV)</a></p>
+        <p class="muted">The JSON export contains configuration only, not a full database backup. Use PostgreSQL backups for full recovery.</p>
+        <h3>Bulk import content pages</h3>
+        <p>Upload a JSON file containing <code>{"pages":[{"slug":"news","title":"News","body":"..."}]}</code>. Imported pages remain unpublished.</p>
+        <input id="importFile" type="file" accept=".json,application/json">
+        <button id="importBtn" class="btn" type="button">Import pages</button>
+      </section>
+    </div>
+  </main>
+  <script src="/assets/js/admin.js"></script>
+</body>
+</html>
